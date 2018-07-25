@@ -7,13 +7,16 @@
 //
 
 import XCTest
+import Siesta
 @testable import RedditViewer
 
 class RedditViewerTests: XCTestCase {
-    
+    var table: PostsTableViewController!
+    var posts: [Post] = []
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        // Put setup code here. This method is called before the invocation of each test method in  the class.
+        table = PostsTableViewController()
     }
     
     override func tearDown() {
@@ -21,16 +24,41 @@ class RedditViewerTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testAllPosts() {
+        let expectation = self.expectation(description: "Loading data")
+        table.presenter.currentPosts().addObserver(owner: self) { (resource, event) in
+            guard let response: RedditObject = resource.typedContent() else { return }
+            guard let childrenContainer = response.data?.children else { return }
+            let posts = childrenContainer.compactMap { (child) -> Post? in
+                return child.data
+            }
+            self.posts = posts
+            expectation.fulfill()
+        }.load()
+        waitForExpectations(timeout: 60, handler: nil)
+        XCTAssert(!self.posts.isEmpty, "Great we are getting data from service")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testCategory() {
+        let expectation = self.expectation(description: "Loading data")
+        table.presenter.getPostsIn(category: "gifs").addObserver(owner: self) { (resource, event) in
+            guard let response: RedditObject = resource.typedContent() else { return }
+            guard let childrenContainer = response.data?.children else { return }
+            let posts = childrenContainer.compactMap { (child) -> Post? in
+                return child.data
+            }
+            self.posts = posts
+            expectation.fulfill()
+            }.load()
+        waitForExpectations(timeout: 60, handler: nil)
+        XCTAssert(!self.posts.isEmpty)
+        
+        guard let checkCategory = self.posts.first?.subreddit else {
+            XCTFail("The subreddit is not present")
+            return
         }
+        XCTAssert(checkCategory.lowercased() == "gifs", "All categories are gifs")
+        
     }
     
 }
