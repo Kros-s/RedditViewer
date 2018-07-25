@@ -158,16 +158,24 @@ Search your favourite one</string>
                                     <constraint firstItem="hum-Nx-Olx" firstAttribute="top" secondItem="hMJ-d0-8E1" secondAttribute="top" constant="-50" id="gME-fh-2RE"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZW-I5-a4o">
+                                <rect key="frame" x="0.0" y="778" width="375" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hMJ-d0-8E1" firstAttribute="top" secondItem="zvV-lo-H4H" secondAttribute="bottom" id="1mv-bu-ddI"/>
                             <constraint firstAttribute="trailing" secondItem="zvV-lo-H4H" secondAttribute="trailing" id="7S8-2s-Yef"/>
                             <constraint firstItem="4YR-cg-Wbo" firstAttribute="bottom" secondItem="hMJ-d0-8E1" secondAttribute="bottom" id="817-lU-FiW"/>
+                            <constraint firstItem="UZW-I5-a4o" firstAttribute="leading" secondItem="6jS-5W-ALe" secondAttribute="leading" id="cdT-gx-fQh"/>
                             <constraint firstItem="zvV-lo-H4H" firstAttribute="top" secondItem="4YR-cg-Wbo" secondAttribute="top" id="eTr-RW-MtT"/>
+                            <constraint firstAttribute="bottom" secondItem="UZW-I5-a4o" secondAttribute="bottom" id="iyo-kp-8bT"/>
                             <constraint firstItem="hMJ-d0-8E1" firstAttribute="leading" secondItem="4YR-cg-Wbo" secondAttribute="leading" id="jVO-7E-d03"/>
+                            <constraint firstAttribute="trailing" secondItem="UZW-I5-a4o" secondAttribute="trailing" id="lhA-Zj-BCC"/>
                             <constraint firstItem="4YR-cg-Wbo" firstAttribute="trailing" secondItem="hMJ-d0-8E1" secondAttribute="trailing" id="mnq-2i-5Up"/>
                             <constraint firstItem="zvV-lo-H4H" firstAttribute="leading" secondItem="4YR-cg-Wbo" secondAttribute="leading" id="qDg-mV-RAS"/>
+                            <constraint firstItem="UZW-I5-a4o" firstAttribute="top" secondItem="hMJ-d0-8E1" secondAttribute="bottom" id="zgT-vT-H3g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4YR-cg-Wbo"/>
                     </view>
@@ -177,7 +185,7 @@ Search your favourite one</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sex-Kj-sqQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1047" y="-159"/>
+            <point key="canvasLocation" x="1045.5999999999999" y="-159.60591133004928"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eMt-Of-8pz">

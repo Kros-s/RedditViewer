@@ -11,6 +11,11 @@ import Siesta
 
 class PostsTableViewController: UITableViewController, ResourceObserver {
     
+    let expandableArea = ExpandableView()
+    var leftConstraint: NSLayoutConstraint!
+    let searchBar = UISearchBar()
+
+    
     func resourceChanged(_ resource: Resource, event: ResourceEvent) {
         
         guard let response: RedditObject = resource.typedContent() else { return }
@@ -42,15 +47,25 @@ class PostsTableViewController: UITableViewController, ResourceObserver {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         response = presenter.currentPosts()
-//        let nib = UINib(nibName: "contentTableViewCell", bundle: nil)
-//        tableView.register(nib, forCellReuseIdentifier: "Cell")
-        
-        
+        setupView()
     }
+    
+    func setupView() {
+        
+        navigationItem.titleView = expandableArea
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(toggle))
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        expandableArea.addSubview(searchBar)
+        searchBar.placeholder = "Place the subcategory here"
+        
+        //LeftConstraint
+        leftConstraint = searchBar.leftAnchor.constraint(equalTo: expandableArea.leftAnchor)
+        leftConstraint.isActive = false
+        searchBar.rightAnchor.constraint(equalTo: expandableArea.rightAnchor).isActive = true
+        searchBar.topAnchor.constraint(equalTo: expandableArea.topAnchor).isActive = true
+        searchBar.bottomAnchor.constraint(equalTo: expandableArea.bottomAnchor).isActive = true
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -69,6 +84,9 @@ class PostsTableViewController: UITableViewController, ResourceObserver {
         cell.subReddit.text = postItem.subreddit
         
         cell.leftIcon.imageURL = postItem.thumbnail
+        
+        // FIXME: Move this to the init on the Cell
+        //Setup for the view
         cell.leftIcon.layer.borderWidth = 1.0
         cell.leftIcon.layer.masksToBounds = false
         cell.leftIcon.layer.borderColor = UIColor.white.cgColor
@@ -91,3 +109,18 @@ class PostsTableViewController: UITableViewController, ResourceObserver {
     
 }
 
+extension PostsTableViewController {
+    @objc func toggle() {
+        
+        let isVisible = leftConstraint.isActive == true
+        
+        // Inactivating the left constraint closes the expandable header.
+        leftConstraint.isActive = !isVisible
+        
+        // Animate change to visible.
+        UIView.animate(withDuration: 1, animations: {
+            self.navigationItem.titleView?.alpha =  !isVisible ? 1 : 0
+            self.navigationItem.titleView?.layoutIfNeeded()
+        })
+    }
+}
