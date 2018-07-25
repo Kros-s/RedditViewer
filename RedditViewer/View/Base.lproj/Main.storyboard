@@ -175,6 +175,10 @@ Search your favourite one</string>
                                             <action selector="closePop:" destination="xGk-Wh-Tbm" eventType="touchUpInside" id="Mo6-FN-ri0"/>
                                         </connections>
                                     </button>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XMb-So-GDb">
+                                        <rect key="frame" x="177" y="207" width="20" height="20"/>
+                                        <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -186,12 +190,14 @@ Search your favourite one</string>
                                     <constraint firstItem="Dle-6H-ehP" firstAttribute="top" secondItem="hMJ-d0-8E1" secondAttribute="top" constant="8" id="IqL-7A-5P7"/>
                                     <constraint firstAttribute="trailing" secondItem="Dle-6H-ehP" secondAttribute="trailing" constant="8" id="NCN-dA-X4g"/>
                                     <constraint firstAttribute="trailing" secondItem="r4W-yN-sxd" secondAttribute="trailing" constant="8" id="Ybj-YG-b9c"/>
+                                    <constraint firstItem="XMb-So-GDb" firstAttribute="centerY" secondItem="hMJ-d0-8E1" secondAttribute="centerY" id="aRD-7c-obG"/>
                                     <constraint firstItem="r4W-yN-sxd" firstAttribute="leading" secondItem="hMJ-d0-8E1" secondAttribute="leading" constant="8" id="cFq-oZ-8JJ"/>
                                     <constraint firstItem="XIW-Oo-z0H" firstAttribute="top" secondItem="789-mV-7EP" secondAttribute="bottom" id="dP6-9u-nlB"/>
                                     <constraint firstItem="hum-Nx-Olx" firstAttribute="leading" secondItem="hMJ-d0-8E1" secondAttribute="leading" constant="30" id="fPH-fT-Es4"/>
                                     <constraint firstItem="hum-Nx-Olx" firstAttribute="top" secondItem="hMJ-d0-8E1" secondAttribute="top" constant="-50" id="gME-fh-2RE"/>
                                     <constraint firstItem="789-mV-7EP" firstAttribute="leading" secondItem="hMJ-d0-8E1" secondAttribute="leading" id="mEm-6W-ZpZ"/>
                                     <constraint firstItem="XIW-Oo-z0H" firstAttribute="leading" secondItem="hMJ-d0-8E1" secondAttribute="leading" id="u2e-Hq-DMP"/>
+                                    <constraint firstItem="XMb-So-GDb" firstAttribute="centerX" secondItem="hMJ-d0-8E1" secondAttribute="centerX" id="zeR-hB-Alm"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZW-I5-a4o">
@@ -216,6 +222,7 @@ Search your favourite one</string>
                         <viewLayoutGuide key="safeArea" id="4YR-cg-Wbo"/>
                     </view>
                     <connections>
+                        <outlet property="indicator" destination="XMb-So-GDb" id="w1h-sg-JuI"/>
                         <outlet property="posTtitle" destination="r4W-yN-sxd" id="tcH-YG-aF6"/>
                         <outlet property="preview" destination="hum-Nx-Olx" id="c2h-Ch-6Oy"/>
                         <outlet property="webView" destination="789-mV-7EP" id="eSg-wp-z6f"/>

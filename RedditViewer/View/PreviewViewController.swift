@@ -12,6 +12,7 @@ import WebKit
 class PreviewViewController: UIViewController {
 
     
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var posTtitle: UILabel!
     @IBOutlet weak var preview: RemoteImageView!
@@ -29,6 +30,7 @@ class PreviewViewController: UIViewController {
     }
     
     func setupView() {
+        webView.navigationDelegate = self
         view.backgroundColor = UIColor.clear
         view.isOpaque = false
         preview.layer.borderWidth = 10.0
@@ -47,6 +49,7 @@ class PreviewViewController: UIViewController {
         let requestObj = URLRequest(url: url!)
         
         webView.load(requestObj)
+        indicator.startAnimating()
     }
     
     @IBAction func openSite(_ sender: Any) {
@@ -62,6 +65,12 @@ class PreviewViewController: UIViewController {
     
 }
 
+extension PreviewViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView,
+                          didFinish navigation: WKNavigation!) {
+        indicator.stopAnimating()
+    }
+}
 
 extension String {
     var isValidURL: Bool {
