@@ -9,22 +9,12 @@
 import UIKit
 import Siesta
 
-class PostsTableViewController: UITableViewController, ResourceObserver {
+class PostsTableViewController: UITableViewController {
     
+    let presenter: Presenter! = Presenter()
     let expandableArea = ExpandableView()
     var leftConstraint: NSLayoutConstraint!
     let searchBar = UISearchBar()
-
-    
-    func resourceChanged(_ resource: Resource, event: ResourceEvent) {
-        
-        guard let response: RedditObject = resource.typedContent() else { return }
-        guard let childrenContainer = response.data?.children else { return }
-        let posts = childrenContainer.compactMap { (child) -> Post? in
-            return child.data
-        }
-        self.posts = posts
-    }
     
     var posts: [Post] = [] {
         didSet {
@@ -32,40 +22,17 @@ class PostsTableViewController: UITableViewController, ResourceObserver {
         }
     }
     
-    let presenter: Presenter! = Presenter()
     var response: Resource? {
         didSet {
-            
             // Adding ourselves as an observer triggers an immediate call to resourceChanged().
-            
             response?.addObserver(self)
-                //.posts(statusOverlay, owner: self)
                 .loadIfNeeded()
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        response = presenter.currentPosts()
         setupView()
-    }
-    
-    func setupView() {
-        
-        navigationItem.titleView = expandableArea
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(toggle))
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        expandableArea.addSubview(searchBar)
-        searchBar.placeholder = "Place the subcategory here"
-        
-        //LeftConstraint
-        leftConstraint = searchBar.leftAnchor.constraint(equalTo: expandableArea.leftAnchor)
-        leftConstraint.isActive = false
-        searchBar.rightAnchor.constraint(equalTo: expandableArea.rightAnchor).isActive = true
-        searchBar.topAnchor.constraint(equalTo: expandableArea.topAnchor).isActive = true
-        searchBar.bottomAnchor.constraint(equalTo: expandableArea.bottomAnchor).isActive = true
-
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -122,5 +89,46 @@ extension PostsTableViewController {
             self.navigationItem.titleView?.alpha =  !isVisible ? 1 : 0
             self.navigationItem.titleView?.layoutIfNeeded()
         })
+    }
+    
+    /// Initializer for all setup necesary for the Post Screen
+    func setupView() {
+        response = presenter.currentPosts()
+        
+        navigationItem.titleView = expandableArea
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(toggle))
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        expandableArea.addSubview(searchBar)
+        searchBar.placeholder = "Place the subcategory here"
+        searchBar.delegate = self
+        
+        //LeftConstraint
+        leftConstraint = searchBar.leftAnchor.constraint(equalTo: expandableArea.leftAnchor)
+        leftConstraint.isActive = false
+        searchBar.rightAnchor.constraint(equalTo: expandableArea.rightAnchor).isActive = true
+        searchBar.topAnchor.constraint(equalTo: expandableArea.topAnchor).isActive = true
+        searchBar.bottomAnchor.constraint(equalTo: expandableArea.bottomAnchor).isActive = true
+        
+    }
+}
+
+extension PostsTableViewController: ResourceObserver {
+    func resourceChanged(_ resource: Resource, event: ResourceEvent) {
+        
+        guard let response: RedditObject = resource.typedContent() else { return }
+        guard let childrenContainer = response.data?.children else { return }
+        let posts = childrenContainer.compactMap { (child) -> Post? in
+            return child.data
+        }
+        self.posts = posts
+    }
+}
+
+extension PostsTableViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //Ultra easy for update searchs, with the help of the observer in siesta
+        response = presenter.getPostsIn(category: searchText)
     }
 }

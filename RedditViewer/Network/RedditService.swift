@@ -25,10 +25,21 @@ class RedditService {
             // Output type inferred because jsonDecoder.decode() will return RedditObject
             try self.decoder.decode(RedditObject.self, from: $0.content)
         }
+        
+        service.configureTransformer("/r/*/.json") {
+            // Input type inferred because the from: param takes Data.
+            // Output type inferred because jsonDecoder.decode() will return RedditObject
+            try self.decoder.decode(RedditObject.self, from: $0.content)
+        }
     }
     
     var activePosts: Resource {
         return service.resource("/.json")
+    }
+    
+    func getSubreddit(_ subreddit: String) -> Resource {
+        let path = "/r/\(subreddit)/.json"
+        return service.resource(path)
     }
     
     deinit {

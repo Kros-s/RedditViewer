@@ -10,8 +10,9 @@ import Foundation
 import Siesta
 
 class Presenter {
-    
-    let service: RedditService!
+    // Don't like to had a singleton here according to Siesta api
+    // Since singletons are anti-pattern
+    var service: RedditService!
     
     init() {
         service = RedditService()
@@ -20,9 +21,13 @@ class Presenter {
     func currentPosts() -> Resource {
         return service.activePosts
     }
-//    
-//    func getCategory() -> Response {
-//        return service
-//    }
+    
+    func getPostsIn(category: String) -> Resource {
+        return service.getSubreddit(category)
+    }
+    
+    deinit {
+        service = nil
+    }
 
 }
