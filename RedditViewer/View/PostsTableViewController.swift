@@ -15,6 +15,7 @@ class PostsTableViewController: UITableViewController {
     let expandableArea = ExpandableView()
     var leftConstraint: NSLayoutConstraint!
     let searchBar = UISearchBar()
+    var selectedRow: Int = 0
     
     var posts: [Post] = [] {
         didSet {
@@ -24,6 +25,7 @@ class PostsTableViewController: UITableViewController {
     
     var response: Resource? {
         didSet {
+            oldValue?.removeObservers(ownedBy: self)
             // Adding ourselves as an observer triggers an immediate call to resourceChanged().
             response?.addObserver(self)
                 .loadIfNeeded()
@@ -63,14 +65,19 @@ class PostsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedRow = indexPath.row
         self.performSegue(withIdentifier: "s_preview", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "s_preview" {
-            let destinationVC = segue.destination as UIViewController
+            let destinationVC = segue.destination as! PreviewViewController
             destinationVC.view.backgroundColor = UIColor.clear
+            destinationVC.preview.imageURL = posts[selectedRow].thumbnail
+            destinationVC.posTtitle.text = posts[selectedRow].title
+            destinationVC.stringUrl = posts[selectedRow].url
+            destinationVC.renderPage()
         }
     }
     
@@ -97,6 +104,7 @@ extension PostsTableViewController {
         
         navigationItem.titleView = expandableArea
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(toggle))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.black
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         expandableArea.addSubview(searchBar)
@@ -127,8 +135,29 @@ extension PostsTableViewController: ResourceObserver {
 
 extension PostsTableViewController: UISearchBarDelegate {
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        response = presenter.currentPosts()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        response = presenter.currentPosts()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        response = presenter.currentPosts()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        response = presenter.currentPosts()
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //Ultra easy for update searchs, with the help of the observer in siesta
-        response = presenter.getPostsIn(category: searchText)
+        if !searchText.isEmpty {
+            response = presenter.getPostsIn(category: searchText)
+        } else {
+            response = presenter.currentPosts()
+        }
+        
     }
 }

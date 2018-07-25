@@ -110,7 +110,7 @@ Search your favourite one</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R8s-Vf-hNe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="245.59999999999999" y="-158.77061469265368"/>
+            <point key="canvasLocation" x="76" y="-158"/>
         </scene>
         <!--Preview View Controller-->
         <scene sceneID="ZOM-4Z-qUD">
@@ -122,7 +122,50 @@ Search your favourite one</string>
                         <subviews>
                             <view alpha="0.45000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zvV-lo-H4H">
                                 <rect key="frame" x="0.0" y="44" width="375" height="300"/>
+                                <color key="backgroundColor" red="0.91439958756345174" green="0.91439958756345174" blue="0.91439958756345174" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="s41-Mb-Pvv"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMJ-d0-8E1">
+                                <rect key="frame" x="0.0" y="344" width="375" height="434"/>
                                 <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hum-Nx-Olx" customClass="RemoteImageView" customModule="Siesta">
+                                        <rect key="frame" x="30" y="-50" width="100" height="100"/>
+                                        <color key="backgroundColor" red="0.71758010790000004" green="0.27826978052650148" blue="0.46453566678712999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="JJT-0y-Ok7"/>
+                                            <constraint firstAttribute="width" secondItem="hum-Nx-Olx" secondAttribute="height" id="ZwU-gt-806"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4W-yN-sxd">
+                                        <rect key="frame" x="8" y="70" width="359" height="21"/>
+                                        <fontDescription key="fontDescription" name="Rockwell-Regular" family="Rockwell" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIW-Oo-z0H">
+                                        <rect key="frame" x="0.0" y="374" width="375" height="60"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="euW-TU-D0L"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Rockwell-Regular" family="Rockwell" pointSize="17"/>
+                                        <state key="normal" title="Open in browser ">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="openSite:" destination="xGk-Wh-Tbm" eventType="touchUpInside" id="BZj-ra-ZQH"/>
+                                        </connections>
+                                    </button>
+                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="789-mV-7EP">
+                                        <rect key="frame" x="0.0" y="101" width="375" height="273"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <wkWebViewConfiguration key="configuration">
+                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                            <wkPreferences key="preferences"/>
+                                        </wkWebViewConfiguration>
+                                    </wkWebView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dle-6H-ehP">
                                         <rect key="frame" x="337" y="8" width="30" height="34"/>
                                         <state key="normal" title="X">
@@ -133,29 +176,22 @@ Search your favourite one</string>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.91439958756345174" green="0.91439958756345174" blue="0.91439958756345174" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="Dle-6H-ehP" secondAttribute="trailing" constant="8" id="2iT-MY-vNa"/>
-                                    <constraint firstItem="Dle-6H-ehP" firstAttribute="top" secondItem="zvV-lo-H4H" secondAttribute="top" constant="8" id="Yd7-mG-sUt"/>
-                                    <constraint firstAttribute="height" constant="300" id="s41-Mb-Pvv"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMJ-d0-8E1">
-                                <rect key="frame" x="0.0" y="344" width="375" height="434"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hum-Nx-Olx">
-                                        <rect key="frame" x="30" y="-50" width="100" height="100"/>
-                                        <color key="backgroundColor" red="0.71758010790000004" green="0.27826978052650148" blue="0.46453566678712999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="JJT-0y-Ok7"/>
-                                            <constraint firstAttribute="width" secondItem="hum-Nx-Olx" secondAttribute="height" id="ZwU-gt-806"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="XIW-Oo-z0H" secondAttribute="trailing" id="4Do-YY-HIS"/>
+                                    <constraint firstItem="r4W-yN-sxd" firstAttribute="top" secondItem="hum-Nx-Olx" secondAttribute="bottom" constant="20" id="5XI-Sy-zGN"/>
+                                    <constraint firstAttribute="bottom" secondItem="XIW-Oo-z0H" secondAttribute="bottom" id="8rW-QX-zgV"/>
+                                    <constraint firstAttribute="trailing" secondItem="789-mV-7EP" secondAttribute="trailing" id="8uu-w2-lRr"/>
+                                    <constraint firstItem="789-mV-7EP" firstAttribute="top" secondItem="r4W-yN-sxd" secondAttribute="bottom" constant="10" id="FRv-R8-FTC"/>
+                                    <constraint firstItem="Dle-6H-ehP" firstAttribute="top" secondItem="hMJ-d0-8E1" secondAttribute="top" constant="8" id="IqL-7A-5P7"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dle-6H-ehP" secondAttribute="trailing" constant="8" id="NCN-dA-X4g"/>
+                                    <constraint firstAttribute="trailing" secondItem="r4W-yN-sxd" secondAttribute="trailing" constant="8" id="Ybj-YG-b9c"/>
+                                    <constraint firstItem="r4W-yN-sxd" firstAttribute="leading" secondItem="hMJ-d0-8E1" secondAttribute="leading" constant="8" id="cFq-oZ-8JJ"/>
+                                    <constraint firstItem="XIW-Oo-z0H" firstAttribute="top" secondItem="789-mV-7EP" secondAttribute="bottom" id="dP6-9u-nlB"/>
                                     <constraint firstItem="hum-Nx-Olx" firstAttribute="leading" secondItem="hMJ-d0-8E1" secondAttribute="leading" constant="30" id="fPH-fT-Es4"/>
                                     <constraint firstItem="hum-Nx-Olx" firstAttribute="top" secondItem="hMJ-d0-8E1" secondAttribute="top" constant="-50" id="gME-fh-2RE"/>
+                                    <constraint firstItem="789-mV-7EP" firstAttribute="leading" secondItem="hMJ-d0-8E1" secondAttribute="leading" id="mEm-6W-ZpZ"/>
+                                    <constraint firstItem="XIW-Oo-z0H" firstAttribute="leading" secondItem="hMJ-d0-8E1" secondAttribute="leading" id="u2e-Hq-DMP"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UZW-I5-a4o">
@@ -180,7 +216,9 @@ Search your favourite one</string>
                         <viewLayoutGuide key="safeArea" id="4YR-cg-Wbo"/>
                     </view>
                     <connections>
+                        <outlet property="posTtitle" destination="r4W-yN-sxd" id="tcH-YG-aF6"/>
                         <outlet property="preview" destination="hum-Nx-Olx" id="c2h-Ch-6Oy"/>
+                        <outlet property="webView" destination="789-mV-7EP" id="eSg-wp-z6f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sex-Kj-sqQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
