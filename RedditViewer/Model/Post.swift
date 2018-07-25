@@ -7,7 +7,8 @@
 //
 
 import Foundation
-
+// Using codable to take advantage of the JSONDecoder in order to use Data from resource
+// 
 struct RedditObject: Codable {
     let data: Contents?
 }

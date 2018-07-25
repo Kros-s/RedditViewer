@@ -8,6 +8,7 @@
 
 import UIKit
 import Siesta
+
 class contentTableViewCell: UITableViewCell {
     @IBOutlet weak var view: UIView!
     
@@ -29,9 +30,6 @@ class contentTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-        //configureStatus(isActive: selected)
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -40,6 +38,9 @@ class contentTableViewCell: UITableViewCell {
     }
 
     
+    /// Method to set the colors desired depenging state, could be use for selected too
+    ///
+    /// - Parameter isActive: flag to know if it's selected or even highlighted
     func configureStatus(isActive: Bool) {
         if isActive {
             view.layer.backgroundColor = UIColor.gray.cgColor

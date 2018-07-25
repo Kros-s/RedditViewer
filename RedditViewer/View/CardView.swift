@@ -10,6 +10,9 @@
 import UIKit
 
 @IBDesignable
+
+
+/// Custom view to give the look of a material card
 class CardView: UIView {
     
     @IBInspectable var cornerRadius: CGFloat = 10

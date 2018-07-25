@@ -20,12 +20,14 @@ class RedditService {
         #endif
         service = Service(baseURL: baseUrl, standardTransformers: [.image, .text])
         
+        // Process response data as a json in order to don't use Dictionaries
         service.configureTransformer("/.json") {
             // Input type inferred because the from: param takes Data.
             // Output type inferred because jsonDecoder.decode() will return RedditObject
             try self.decoder.decode(RedditObject.self, from: $0.content)
         }
         
+        // Process response data as a json in order to don't use Dictionaries
         service.configureTransformer("/r/*/.json") {
             // Input type inferred because the from: param takes Data.
             // Output type inferred because jsonDecoder.decode() will return RedditObject
@@ -37,6 +39,10 @@ class RedditService {
         return service.resource("/.json")
     }
     
+    /// Get post based on input
+    ///
+    /// - Parameter subreddit: string
+    /// - Returns: resource
     func getSubreddit(_ subreddit: String) -> Resource {
         let path = "/r/\(subreddit)/.json"
         return service.resource(path)

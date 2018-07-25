@@ -22,6 +22,10 @@ class Presenter {
         return service.activePosts
     }
     
+    /// Get all post based on the input from the user
+    ///
+    /// - Parameter category: string provided by the user
+    /// - Returns: resource to be handled on the observer by the tableView
     func getPostsIn(category: String) -> Resource {
         return service.getSubreddit(category)
     }

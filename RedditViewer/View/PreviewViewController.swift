@@ -16,12 +16,14 @@ class PreviewViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var posTtitle: UILabel!
     @IBOutlet weak var preview: RemoteImageView!
+    
     @IBAction func closePop(_ sender: Any) {
         self.dismiss(animated: true) {
             
         }
     }
     var stringUrl: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +31,7 @@ class PreviewViewController: UIViewController {
         setupView()
     }
     
+    //Config for set all properties & design
     func setupView() {
         webView.navigationDelegate = self
         view.backgroundColor = UIColor.clear
@@ -42,6 +45,7 @@ class PreviewViewController: UIViewController {
         
     }
     
+    /// We trigger this one from the prepare in order to be ready to load the page
     func renderPage() {
         //For load the page on the webView
         guard let urlString = stringUrl, urlString.isValidURL else { return }
@@ -52,6 +56,9 @@ class PreviewViewController: UIViewController {
         indicator.startAnimating()
     }
     
+    /// Give an option to the user to view the content on safari
+    ///
+    /// - Parameter sender:
     @IBAction func openSite(_ sender: Any) {
          guard let urlString = stringUrl, urlString.isValidURL else { return }
         guard let url = URL(string: urlString) else { return }
@@ -72,6 +79,7 @@ extension PreviewViewController: WKNavigationDelegate {
     }
 }
 
+// MARK: - Validates de string 
 extension String {
     var isValidURL: Bool {
         let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)

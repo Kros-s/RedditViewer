@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Custom view that Fits all available space used in combo with SearchBar for effect
 class ExpandableView: UIView {
     
     override init(frame: CGRect) {

@@ -17,6 +17,7 @@ class PostsTableViewController: UITableViewController {
     let searchBar = UISearchBar()
     var selectedRow: Int = 0
     
+    //Resource will populate this one always and trigger the update on the tableView
     var posts: [Post] = [] {
         didSet {
             tableView.reloadData()
@@ -25,6 +26,7 @@ class PostsTableViewController: UITableViewController {
     
     var response: Resource? {
         didSet {
+            // Need to remove this observer in order to don't save cache for the previous api calls made
             oldValue?.removeObservers(ownedBy: self)
             // Adding ourselves as an observer triggers an immediate call to resourceChanged().
             response?.addObserver(self)
@@ -69,6 +71,11 @@ class PostsTableViewController: UITableViewController {
         self.performSegue(withIdentifier: "s_preview", sender: nil)
     }
     
+    /// Getting ready for the next view, here we sent the data to the next view
+    ///
+    /// - Parameters:
+    ///   - segue: segue being called
+    ///   - sender:
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "s_preview" {
@@ -84,8 +91,10 @@ class PostsTableViewController: UITableViewController {
 }
 
 extension PostsTableViewController {
+    
+    /// Toggles constraint and hide/show tittle (expandableView) in order
+    /// to create an animation for SearchBar
     @objc func toggle() {
-        
         let isVisible = leftConstraint.isActive == true
         
         // Inactivating the left constraint closes the expandable header.
@@ -122,6 +131,11 @@ extension PostsTableViewController {
 }
 
 extension PostsTableViewController: ResourceObserver {
+    /// Detecs when our resource changed by using this delegate allows us to keep track of the changes
+    ///
+    /// - Parameters:
+    ///   - resource: resource returned by service
+    ///   - event: type of event coming 
     func resourceChanged(_ resource: Resource, event: ResourceEvent) {
         
         guard let response: RedditObject = resource.typedContent() else { return }
